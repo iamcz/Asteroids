@@ -28,7 +28,30 @@
       var canvasEl = document.getElementById("asteroids_canvas");
       var context = canvasEl.getContext('2d');
 
-      new Asteroids.GameView(context).start();
+      var gameView = new Asteroids.GameView(context);
+      gameView.start();
+
+      keys = [];
+      canvasEl.setAttribute("tabindex", 0);
+      canvasEl.focus();
+
+      canvasEl.addEventListener("keydown", function (e) {
+        keys[e.keyCode] = true;
+      });
+
+      canvasEl.addEventListener("keyup", function (e) {
+        keys[e.keyCode] = false;
+      });
+
+      setInterval(function () {
+        var i, l = keys.length;
+        for (i = 0; i < l; i += 1) {
+          if (keys[i]) {
+            gameView.registerKey(i);
+          }
+        }
+      }, 1000 / 24);
+			
     </script>
   </body>
 </html>
