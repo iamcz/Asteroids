@@ -2,9 +2,25 @@
 <html>
   <head>
     <style media="screen">
+      html, body, h1, canvas {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        font: inherit;
+        color: inherit;
+      }
+
       html {
+        height: 100%;
         background: lightgray;
       }
+
+      body {
+        height: 100%;
+      }
+
       canvas {
         background: darkgray;
       }
@@ -13,8 +29,7 @@
     <title>Asteroids</title>
   </head>
   <body>
-	<h1>Asteroids</h1>
-    <canvas id="asteroids_canvas" width="800" height="500"></canvas>
+    <canvas id="asteroids_canvas"></canvas>
 
     <script src="lib/keymaster.js"></script>
     <script src="lib/util.js"></script>
@@ -28,7 +43,7 @@
       var canvasEl = document.getElementById("asteroids_canvas");
       var context = canvasEl.getContext('2d');
 
-      var gameView = new Asteroids.GameView(context);
+      var gameView = new Asteroids.GameView(canvasEl);
       gameView.start();
 
       keys = [];
