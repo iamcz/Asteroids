@@ -46,24 +46,33 @@
       var gameView = new Asteroids.GameView(canvasEl);
       gameView.start();
 
-      keys = [];
+      keys = {
+        "32": false, // Space
+        "37": false, // Left
+        "38": false, // Up
+        "39": false, // Right
+      };
+
       canvasEl.setAttribute("tabindex", 0);
       canvasEl.focus();
 
       canvasEl.addEventListener("keydown", function (e) {
-        keys[e.keyCode] = true;
+        if (keys[e.keyCode] !== undefined) { 
+          e.preventDefault(); 
+          keys[e.keyCode] = true;
+        }
       });
 
       canvasEl.addEventListener("keyup", function (e) {
-        keys[e.keyCode] = false;
+        if (keys[e.keyCode] !== undefined) { 
+          e.preventDefault(); 
+          keys[e.keyCode] = false;
+        }
       });
 
       setInterval(function () {
-        var i, l = keys.length;
-        for (i = 0; i < l; i += 1) {
-          if (keys[i]) {
-            gameView.registerKey(i);
-          }
+        for (key in keys) {
+          if (keys[key]) { gameView.registerKey(parseInt(key)); }
         }
       }, 1000 / 24);
 			
